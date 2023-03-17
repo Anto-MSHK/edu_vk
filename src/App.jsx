@@ -5,6 +5,7 @@ import { GlobalContext, GetRoutes } from './context';
 
 import '@vkontakte/vkui/dist/vkui.css';
 import Home from './panels/Home';
+import Roles from "./components/Roles/Roles.jsx";
 
 const Gioconda = React.lazy(() => import('./panels/Gioconda'));
 const Error = React.lazy(() => import('./panels/Error'));
@@ -37,6 +38,7 @@ const App = () => {
                   <Home id='home' fetchedUser={fetchedUser} />
                   <Gioconda id='gioconda' />
                   <Error id='404' />
+                  <Roles id='Roles' />
                 </View>
               </GetRoutes>
             </SplitCol>

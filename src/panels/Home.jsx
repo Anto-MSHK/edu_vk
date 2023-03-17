@@ -52,15 +52,15 @@ const Home = ({ id, fetchedUser }) => {
 
         </Group>
       </div>
-      <Group header={<Header mode="secondary">Пример навигации</Header>}>
+      <Group header={<Header mode="primary">Выберите должность</Header>}>
         <Div>
-          <Button stretched size="l" mode="secondary" onClick={()=>go("gioconda")}>
-            Покажите мне Мона Лизу
+          <Button stretched size="l" mode="secondary" onClick={() => go("Roles")}>
+            Выбор должности
           </Button>
         </Div>
         <Div>
-          <Button stretched size="l" mode="secondary" onClick={()=>go(Math.random())}>
-            Этой страницы не существует
+          <Button stretched size="l" mode="secondary" onClick={() => go("gioconda")}>
+            Андрей
           </Button>
         </Div>
       </Group>

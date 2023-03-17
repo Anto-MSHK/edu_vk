@@ -16,7 +16,7 @@ const GlobalProvider = ({ children }) => {
   
   const go = (path) => {
     if (data.aviableRoutes.includes(path)) Data(e=>({...e,path}))
-    else Data(e=>({...e,path:e.fallback}));
+    else Data(e=>({...e, path: e.fallback}));
   }
 
   const Appearance = (appearance) => {
