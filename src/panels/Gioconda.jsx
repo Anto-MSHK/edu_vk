@@ -16,7 +16,7 @@ export default props => {
 		<PanelHeader
 			before={<PanelHeaderBack onClick={()=>go("home")} />}
 		>
-			Мона Лиза
+			Мона Лиза 
 		</PanelHeader>
 		<canvas className="Gioconda" id="c" height={100} width={100} onClick={reload}/>
 	</Panel>
