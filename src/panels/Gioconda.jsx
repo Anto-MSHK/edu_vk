@@ -16,7 +16,7 @@ export default props => {
 		<PanelHeader
 			before={<PanelHeaderBack onClick={()=>go("home")} />}
 		>
-			Мона Лиза
+			Мона Лиза 
 		</PanelHeader>
 
 	</Panel>
