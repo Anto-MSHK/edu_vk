@@ -9,6 +9,7 @@ import Roles from "./components/Roles/Roles.jsx";
 
 const Gioconda = React.lazy(() => import('./panels/Gioconda'));
 const Error = React.lazy(() => import('./panels/Error'));
+const Auth = React.lazy(() => import('./panels/Auth'));
 
 const App = () => {
   const {path,appearance,Appearance} = useContext(GlobalContext)
@@ -38,6 +39,7 @@ const App = () => {
                   <Home id='home' fetchedUser={fetchedUser} />
                   <Gioconda id='gioconda' />
                   <Error id='404' />
+                  <Auth id='auth' fetchedUser={fetchedUser} />
                   <Roles id='Roles' />
                 </View>
               </GetRoutes>
