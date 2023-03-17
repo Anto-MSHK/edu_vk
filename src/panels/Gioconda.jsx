@@ -18,6 +18,6 @@ export default props => {
 		>
 			Мона Лиза 
 		</PanelHeader>
-		<canvas className="Gioconda" id="c" height={100} width={100} onClick={reload}/>
+
 	</Panel>
 }
