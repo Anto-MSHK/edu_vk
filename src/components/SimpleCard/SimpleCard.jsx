@@ -24,14 +24,17 @@ export const SimpleCard = ({ title, tag, btnText, user }) => {
               justifyContent: "space-between",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <Counter
-                mode="prominent"
-                marginHeight={10}
-                style={{ padding: 2, marginRight: 10 }}
-              >
-                <Title level="4">{tag}</Title>
-              </Counter>
+            <div style={{ display: "flex", alignItems: "center", textAlign: 'center' }}>
+              {user && (
+                  <SimpleCell
+                      before={
+                        user.photo_200 ? <Avatar src={user.photo_200}/> : null
+                      }
+                      subtitle={user.desc}
+                  >
+                    {user.name}
+                  </SimpleCell>
+              )}
               <Title
                 level="1"
                 marginHeight={10}
@@ -40,23 +43,8 @@ export const SimpleCard = ({ title, tag, btnText, user }) => {
               >
                 {title}
               </Title>
-              {user && (
-                <SimpleCell
-                  before={
-                    <Avatar
-                      size={35}
-                      src="#"
-                      initials="??"
-                      gradientColor="blue"
-                    />
-                  }
-                  subtitle={user.desc}
-                >
-                  {user.name}
-                </SimpleCell>
-              )}
             </div>
-            {btnText && <Button size="l">{btnText}</Button>}
+            <Title style={{color: 'gray', fontSize: 12}}>Прочитано</Title>
           </div>
         </Tappable>
       </Card>
