@@ -4,6 +4,7 @@ import {Panel, PanelHeader, Header, Button, Group, Cell, Div, Avatar, Placeholde
 
 import { SkeletonAvatar, SkeletonText } from '../components/Skeleton';
 import { GlobalContext } from '../context';
+import {SimpleCard} from "../components/SimpleCard/SimpleCard.jsx";
 
 const Home = ({ id, fetchedUser }) => {
     const { go } = useContext(GlobalContext)
@@ -49,11 +50,14 @@ const Home = ({ id, fetchedUser }) => {
                                             Расписание
                                         </Button>
                                     </Div>
-                                    <Div>
-                                        <Button stretched size="l" mode="primary">
-                                            Уведомления
-                                        </Button>
-                                    </Div>
+                                    <Group header={<Header mode="secondary">Уведомления</Header>} >
+                                        <Div>
+                                            <SimpleCard title={'Кто я?'} tag={'Ы'} btnText={'Прочитано'} user={user} />
+                                        </Div>
+                                        <Div>
+
+                                        </Div>
+                                    </Group>
 
                                 </>
                             else
