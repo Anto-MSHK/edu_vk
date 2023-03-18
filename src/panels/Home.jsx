@@ -77,7 +77,7 @@ const Home = ({id, fetchedUser}) => {
                                             Открыть расписание
                                         </Button>
                                     </div>
-                                    <Group style={{marginTop: 10}}
+                                    <Group style={{padding: 10}}
                                         header={<Header mode="secondary"
                                                         style={{display: 'flex', flexDirection: 'row'}}
                                                         indicator={
