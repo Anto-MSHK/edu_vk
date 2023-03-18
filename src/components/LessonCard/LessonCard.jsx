@@ -52,8 +52,7 @@ export const LessonCard = ({ subject, count, type, teacher, room, time }) => {
   );
   return (
     <SplitLayout
-      style={{ justifyContent: 'center'}}
-      header={<PanelHeader separator={false} />}
+      style={{ justifyContent: 'center' }}
       modal={modalRoot}
     >
       <SplitCol style={{padding: 5}} >
