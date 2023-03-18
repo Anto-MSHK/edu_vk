@@ -53,12 +53,11 @@ export const LessonCard = ({ subject, count, type, teacher, room, time }) => {
   return (
     <SplitLayout
       style={{ justifyContent: 'center' }}
-      header={<PanelHeader separator={false} />}
       modal={modalRoot}
     >
-      <SplitCol >
+      <SplitCol style={{padding: 5}} >
 
-        <Card mode="shadow"  >
+        <Card mode="shadow">
           <div
             style={{
               padding: 20,
@@ -126,27 +125,31 @@ export const LessonCard = ({ subject, count, type, teacher, room, time }) => {
                 justifyContent: "space-between",
               }}
             >
-              <div style={{ display: "flex", gap: 10 }}>
-                <SimpleCell style={{width: '58%', padding: 0}}>
-                  <InfoRow header="Время">
-                    {time.from}-{time.to}
-                  </InfoRow>
-                </SimpleCell>
-                <SimpleCell style={{width: '40%', padding: 0}}>
-                  <InfoRow header="Кабинет">{room}</InfoRow>
-                </SimpleCell>
+              <div style={{ display: "flex", gap: 10}}>
+                <div>
+                  <SimpleCell>
+                    <InfoRow header="Время">
+                      {time.from}-{time.to}
+                    </InfoRow>
+                  </SimpleCell>
+                </div>
+                <div>
+                  <SimpleCell>
+                    <InfoRow header="Кабинет">{room}</InfoRow>
+                  </SimpleCell>
+                </div>
               </div>
-              {teacher && (
-                <SimpleCell style={{width: '50%', left: 0}}
-                  before={
-                    <Avatar size={35} src="#" initials="??" gradientColor="blue" />
-                  }
-                  subtitle={`преподаватель (${teacher.degree})`}
+            </div>
+            {teacher && (
+                <SimpleCell
+                    before={
+                      <Avatar size={35} src="#" initials="??" gradientColor="blue" />
+                    }
+                    subtitle={`преподаватель (${teacher.degree})`}
                 >
                   {teacher.name}
                 </SimpleCell>
-              )}
-            </div>
+            )}
           </div>
         </Card>
       </SplitCol>
