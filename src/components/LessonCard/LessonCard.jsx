@@ -58,7 +58,7 @@ export const LessonCard = ({ subject, count, type, teacher, room, time }) => {
     >
       <SplitCol >
 
-        <Card mode="shadow">
+        <Card mode="shadow"  >
           <div
             style={{
               padding: 20,
@@ -127,17 +127,17 @@ export const LessonCard = ({ subject, count, type, teacher, room, time }) => {
               }}
             >
               <div style={{ display: "flex", gap: 10 }}>
-                <SimpleCell>
+                <SimpleCell style={{width: '58%', padding: 0}}>
                   <InfoRow header="Время">
                     {time.from}-{time.to}
                   </InfoRow>
                 </SimpleCell>
-                <SimpleCell>
+                <SimpleCell style={{width: '40%', padding: 0}}>
                   <InfoRow header="Кабинет">{room}</InfoRow>
                 </SimpleCell>
               </div>
               {teacher && (
-                <SimpleCell
+                <SimpleCell style={{width: '50%', left: 0}}
                   before={
                     <Avatar size={35} src="#" initials="??" gradientColor="blue" />
                   }
