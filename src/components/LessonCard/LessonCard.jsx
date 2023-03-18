@@ -20,9 +20,10 @@ import {
 import { Icon16Clear, Icon16MoreVertical } from "@vkontakte/icons";
 import { Popover } from "@vkontakte/vkui/dist/components/Popover/Popover";
 
-export const LessonCard = ({ subject, count, type, teacher, room, time }) => {
+export const LessonCard = ({ data, count, time }) => {
   const [shown, setShown] = React.useState(false);
   const [modal, setModal] = React.useState(null);
+  const [curWeek, setCurWeek] = useState < "topWeek" | "lowerWeek" > ("topWeek");
   const [notes, setNotes] = React.useState([{
     value: 'gym',
     label: 'Надо подкачаться'
@@ -87,13 +88,23 @@ export const LessonCard = ({ subject, count, type, teacher, room, time }) => {
                       style={{ marginRight: 5 }}
                       weight={"1"}
                     >
-                      {subject}
+                      <div className={"first_container"}>
+                        <h1 className={"main__title"}>
+                          {data[curWeek]?.subject ? (
+                            <div>
+                              {data[curWeek]?.subject && data[curWeek]?.subject.title}
+                            </div>
+                          ) : (
+                            <div>Пары нет</div>
+                          )}
+                        </h1>
+                      </div>
                     </Title>
                   </div>
                 </div>
-                {type && (
+                {(
                   <Title level="3" weight="3" style={{ marginRight: 10 }}>
-                    ({type})
+                    ({data[curWeek]?.subject.type})
                   </Title>
                 )}
               </div>
@@ -128,24 +139,24 @@ export const LessonCard = ({ subject, count, type, teacher, room, time }) => {
             >
               <div style={{ display: "flex", gap: 10 }}>
                 <SimpleCell>
-                  <InfoRow header="Время">
+                {/*   <InfoRow header="Время">
                     {time.from}-{time.to}
-                  </InfoRow>
+                  </InfoRow> */}
                 </SimpleCell>
                 <SimpleCell>
-                  <InfoRow header="Кабинет">{room}</InfoRow>
+                  <InfoRow header="Кабинет">{}</InfoRow>
                 </SimpleCell>
               </div>
-              {teacher && (
+             
                 <SimpleCell
                   before={
                     <Avatar size={35} src="#" initials="??" gradientColor="blue" />
                   }
-                  subtitle={`преподаватель (${teacher.degree})`}
+                  subtitle={`преподаватель (${data[curWeek]?.teacher?.degree &&
+                    " (" + data[curWeek]?.teacher?.degree + ")"})`}
                 >
-                  {teacher.name}
+                  {data[curWeek]?.teacher?.name}
                 </SimpleCell>
-              )}
             </div>
           </div>
         </Card>
