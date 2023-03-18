@@ -43,15 +43,8 @@ export const SimpleCard = ({ title, tag, btnText, user }) => {
               >
                 {title}
               </Title>
-              <Counter
-                  mode="prominent"
-                  marginHeight={10}
-                  style={{ padding: 2, marginRight: 10 }}
-              >
-                <Title level="4">{tag}</Title>
-              </Counter>
             </div>
-            <Button size="s" style={{height: '50%'}}>Прочитано</Button>
+            <Title style={{color: 'gray', fontSize: 12}}>Прочитано</Title>
           </div>
         </Tappable>
       </Card>
