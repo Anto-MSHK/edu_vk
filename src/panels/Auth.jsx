@@ -42,7 +42,8 @@ const Auth = ({ id, fetchedUser }) => {
         return () => clearTimeout(t)
     },[fetchedUser])
 
-    return <Panel id={id}>
+    return ( 
+    <Panel id={id}>
         <PanelHeader>EDU.vk</PanelHeader>
         <div/>
         <div style={{maxWidth:600,width:"100%",marginInline:"auto", marginTop:20}}>
@@ -78,7 +79,7 @@ const Auth = ({ id, fetchedUser }) => {
                 </Group>
             </div>
         </div>
-    </Panel>
+    </Panel>)
 }
 
 export default Auth;

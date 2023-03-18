@@ -43,6 +43,14 @@ const Home = ({ id, fetchedUser }) => {
       type: 'теория',
       room: '231'
     },
+    {
+      subject: 'БЖ',
+      count: 4,
+      teacher: { name: 'Душный чел', degree: 'душнила' },
+      time: { from: '0:00', to: '0:00' },
+      type: 'теория',
+      room: '231'
+    },
   ]
   return (
     <Panel id={id}>
