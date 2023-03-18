@@ -11,10 +11,8 @@ import {
   PanelHeaderClose,
 } from "@vkontakte/vkui";
 
-import { SkeletonAvatar, SkeletonText } from "../components/Skeleton";
-
-import { CoupleCard } from "../components/CoupleCard/CoupleCard";
 import { GlobalContext } from "../context";
+import { LessonCard } from "../components/LessonCard/LessonCard";
 
 const Home = ({ id, fetchedUser }) => {
   const {go} = useContext(GlobalContext);
@@ -72,7 +70,7 @@ const Home = ({ id, fetchedUser }) => {
         {
           mockSchedule.map((lesson) => (
 
-            <CoupleCard
+            <LessonCard
               key={lesson.count}
               subject={lesson.subject}
               teacher={lesson.teacher}
