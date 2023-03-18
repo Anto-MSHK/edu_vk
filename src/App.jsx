@@ -5,11 +5,11 @@ import { GlobalContext, GetRoutes } from './context';
 
 import '@vkontakte/vkui/dist/vkui.css';
 import Home from './panels/Home';
-import Roles from "./components/Roles/Roles.jsx";
+import { Roles } from "./components/Roles/Roles.jsx";
 
 const Gioconda = React.lazy(() => import('./panels/Gioconda'));
 const Error = React.lazy(() => import('./panels/Error'));
-const Auth = React.lazy(() => import('./panels/Auth'));
+const Auth = React.lazy(() => import('./panels/Auth.jsx'));
 
 const App = () => {
   const {path,appearance,Appearance} = useContext(GlobalContext)

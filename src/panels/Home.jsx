@@ -56,6 +56,7 @@ const Home = ({ id, fetchedUser }) => {
         <Div>
           <Button stretched size="l" mode="secondary" onClick={()=>go("auth")}>
             Покажите мне Мона Лизу
+          </Button>
           <Button stretched size="l" mode="secondary" onClick={() => go("Roles")}>
             Выбор должности
           </Button>

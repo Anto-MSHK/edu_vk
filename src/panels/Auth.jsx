@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import ReactDOM from "react-dom/client";
-import { Panel, PanelHeader, Header, Button, Group, Cell, Div, Avatar } from '@vkontakte/vkui';
+import {Panel, PanelHeader, Header, Button, Group, Cell, Div, Avatar, Placeholder} from '@vkontakte/vkui';
 
 import { SkeletonAvatar, SkeletonText } from '../components/Skeleton';
 import { GlobalContext } from '../context';
+import { Roles } from "../components/Roles/Roles.jsx";
 
 const Auth = ({ id, fetchedUser }) => {
     const { go } = useContext(GlobalContext)
@@ -13,16 +14,30 @@ const Auth = ({ id, fetchedUser }) => {
         if (fetchedUser) return () => {};
         const t = setTimeout(() => {
             ReactDOM.createRoot(d.current).render(
-                <Group header={<Header mode="secondary">Ты кто по жизни?</Header>}>
-                    <Cell disabled   multiline>
-                        <Div>
-                            <Button size={'l'} mode={'secondary'}>Учитель</Button>
-                        </Div>
-                        <Div>
-                            <Button size={'l'} mode={'secondary'}>Студент</Button>
-                        </Div>
-                    </Cell>
-                </Group>
+                <Placeholder
+                    action={
+                        <Group header={<Header mode="primary">Выберите свою должность</Header>}>
+                            <Div>
+                                <Button stretched size="l" mode="primary" onClick={() => go("home")}>
+                                    Студент
+                                </Button>
+                            </Div>
+                            <Div>
+                                <Button stretched size="l" mode="primary" onClick={() => go("home")}>
+                                    Преподаватель
+                                </Button>
+                            </Div>
+                            <Div>
+                                <Button stretched size="l" mode="secondary" onClick={()=>go(index)}>
+                                    Вернуться на главную
+                                </Button>
+                            </Div>
+                        </Group>
+
+                    }
+                    stretched
+                >
+                </Placeholder>
             )
         }, 4000);
         return () => clearTimeout(t)
