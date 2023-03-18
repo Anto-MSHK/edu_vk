@@ -1,39 +1,26 @@
 import React, { useRef, useState, useEffect } from "react";
 import {
-  ActionSheet,
-  ActionSheetDefaultIosCloseItem,
-  ActionSheetItem,
   Avatar,
-  Button,
   Card,
-  CardGrid,
-  CellButton,
   ChipsInput,
   Counter,
-  Div,
   FormItem,
-  Group,
-  Header,
   IconButton,
   InfoRow,
   ModalCard,
-  ModalPage,
   ModalRoot,
-  Panel,
   PanelHeader,
   Separator,
   SimpleCell,
   SplitCol,
   SplitLayout,
-  Tappable,
-  Text,
   Title,
-  View,
+
 } from "@vkontakte/vkui";
-import { Icon16Clear, Icon16Delete, Icon16MoreVertical } from "@vkontakte/icons";
+import { Icon16Clear, Icon16MoreVertical } from "@vkontakte/icons";
 import { Popover } from "@vkontakte/vkui/dist/components/Popover/Popover";
 
-export const CoupleCard = ({ subject, count, type, teacher, room, time }) => {
+export const LessonCard = ({ subject, count, type, teacher, room, time }) => {
   const [shown, setShown] = React.useState(false);
   const [modal, setModal] = React.useState(null);
   const [notes, setNotes] = React.useState([{
