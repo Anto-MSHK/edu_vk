@@ -63,20 +63,20 @@ const Home = ({id, fetchedUser}) => {
                             if (userExists)
                                 return <> <Cell
                                     before={user.photo_200 ?
-                                        <Avatar onClick={() => window.open(`https://vk.com/id${user.id}`)}
+                                        <Avatar
                                                 src={user.photo_200}/> : null}
-                                    extraSubtitle={
-                                        <div style={{display: 'flex', flexDirection: 'column', rowGap: 10}}>
-                                            {user?.first_name + " " + user?.last_name}
-                                            <Button stretched size="l" mode="secondary"
-                                                    onClick={() => go("shredule")}>
-                                                Открыть расписание
-                                            </Button>
-                                        </div>
-
-                                    }
+                                    onClick={() => window.open(`https://vk.com/id${user.id}`)}
                                 >
+                                    <div style={{display: 'flex', flexDirection: 'column', rowGap: 10}}>
+                                        {user?.first_name + " " + user?.last_name}
+                                    </div>
                                 </Cell>
+                                    <div style={{padding: 10}}>
+                                        <Button stretched size="l" mode="secondary"
+                                                onClick={() => go("shredule")}>
+                                            Открыть расписание
+                                        </Button>
+                                    </div>
                                     <Group style={{marginTop: 10}}
                                         header={<Header mode="secondary"
                                                         style={{display: 'flex', flexDirection: 'row'}}
