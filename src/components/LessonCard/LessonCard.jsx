@@ -52,11 +52,11 @@ export const LessonCard = ({ subject, count, type, teacher, room, time }) => {
   );
   return (
     <SplitLayout
-      style={{ justifyContent: 'center' }}
+      style={{ justifyContent: 'center'}}
       header={<PanelHeader separator={false} />}
       modal={modalRoot}
     >
-      <SplitCol >
+      <SplitCol style={{padding: 5}} >
 
         <Card mode="shadow">
           <div
@@ -126,27 +126,31 @@ export const LessonCard = ({ subject, count, type, teacher, room, time }) => {
                 justifyContent: "space-between",
               }}
             >
-              <div style={{ display: "flex", gap: 10 }}>
-                <SimpleCell>
-                  <InfoRow header="Время">
-                    {time.from}-{time.to}
-                  </InfoRow>
-                </SimpleCell>
-                <SimpleCell>
-                  <InfoRow header="Кабинет">{room}</InfoRow>
-                </SimpleCell>
+              <div style={{ display: "flex", gap: 10}}>
+                <div>
+                  <SimpleCell>
+                    <InfoRow header="Время">
+                      {time.from}-{time.to}
+                    </InfoRow>
+                  </SimpleCell>
+                </div>
+                <div>
+                  <SimpleCell>
+                    <InfoRow header="Кабинет">{room}</InfoRow>
+                  </SimpleCell>
+                </div>
               </div>
-              {teacher && (
+            </div>
+            {teacher && (
                 <SimpleCell
-                  before={
-                    <Avatar size={35} src="#" initials="??" gradientColor="blue" />
-                  }
-                  subtitle={`преподаватель (${teacher.degree})`}
+                    before={
+                      <Avatar size={35} src="#" initials="??" gradientColor="blue" />
+                    }
+                    subtitle={`преподаватель (${teacher.degree})`}
                 >
                   {teacher.name}
                 </SimpleCell>
-              )}
-            </div>
+            )}
           </div>
         </Card>
       </SplitCol>
