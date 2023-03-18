@@ -60,7 +60,7 @@ const Shredule = ({id}) => {
 
     return (
         <Panel id={id}>
-            <PanelHeader before={<PanelHeaderBack onClick={()=>go("home")}/>}>Расписание</PanelHeader>
+            <PanelHeader before={<PanelHeaderBack onClick={()=>go("home")}/>}>Сегодня</PanelHeader>
             <Group>
                 <div
                     style={{

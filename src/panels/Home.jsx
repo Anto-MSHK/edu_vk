@@ -57,47 +57,40 @@ const Home = ({id, fetchedUser}) => {
             <div style={{maxWidth: 600, width: "100%", marginInline: "auto", marginTop: 20}}>
                 <div ref={d}>
                     <Group header={<Header
-                        mode="secondary">{fetchedUser ? "Информация о профиле:" : "Загружаем данные ..."}</Header>}>
+                        mode="secondary">{fetchedUser ? "Студент" : null}</Header>}>
                         {((user) => {
                             const userExists = !!user;
                             if (userExists)
                                 return <> <Cell
-                                    before={user.photo_200 ? <Avatar src={user.photo_200}/> : null}
-                                    subtitle={user.city?.title ? user.city.title : null}
-                                    onClick={() => window.open(`https://vk.com/id${user.id}`)}
+                                    before={user.photo_200 ?
+                                        <Avatar onClick={() => window.open(`https://vk.com/id${user.id}`)}
+                                                src={user.photo_200}/> : null}
+                                    extraSubtitle={
+                                        <div style={{display: 'flex', flexDirection: 'column', rowGap: 10}}>
+                                            {user?.first_name + " " + user?.last_name}
+                                            <Button stretched size="l" mode="secondary"
+                                                    onClick={() => go("shredule")}>
+                                                Открыть расписание
+                                            </Button>
+                                        </div>
+
+                                    }
                                 >
-                                    {user?.first_name + " " + user?.last_name}
                                 </Cell>
-                                    <Div>
-                                        <Button stretched size="l" mode="primary" onClick={() => go("shredule")}>
-                                            Расписание
-                                        </Button>
-                                    </Div>
-                                    <Group
+                                    <Group style={{marginTop: 10}}
                                         header={<Header mode="secondary"
-                                                        style={{display: 'flex', flexDirection: 'row', padding: 15}}
+                                                        style={{display: 'flex', flexDirection: 'row'}}
                                                         indicator={
                                                             <Counter size="s" mode="prominent">
-                                                                5
+                                                                3
                                                             </Counter>
-                                                        }
-                                                        aside={
-                                                            <div style={{
-                                                                display: 'flex',
-                                                                flexDirection: 'column',
-                                                                rowGap: 10
-                                                            }}>
-                                                                <Link>
-                                                                    Мои уведомления
-                                                                </Link>
-                                                            </div>
                                                         }>
-                                            Уведомления
+                                            Замены
                                         </Header>}>
                                         <Div>
-                                            <SimpleCard title={'Кто я?'} tag={'Ы'} user={user}/>
-                                            <SimpleCard title={'Кто я?'} tag={'Ы'} user={user}/>
-                                            <SimpleCard title={'Кто я?'} tag={'Ы'} user={user}/>
+                                            <SimpleCard title={'Пары нет'} tag={'4'} day={'19 марта'} user={user}/>
+                                            <SimpleCard title={'Замена'} tag={'1'} day='21 марта' user={user}/>
+                                            <SimpleCard title={'Пары нет'} tag={'3'} day='25 марта' user={user}/>
                                         </Div>
                                     </Group>
 
