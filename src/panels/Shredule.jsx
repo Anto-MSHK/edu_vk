@@ -104,6 +104,9 @@ const Shredule = ({id}) => {
                             <Button style={{width: '100%', marginBottom: 10}}>Другой день</Button>
                         </div>
                     </Popover>
+                    <Button style={{marginBottom: 10}} size="sm" mode="secondary" onClick={() => go("home")}>
+                        Просмотреть замены
+                    </Button>
                 </div>
             </Group>
         </Panel>

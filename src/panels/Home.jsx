@@ -53,6 +53,10 @@ const mockChanges = [
 const Home = ({id, fetchedUser}) => {
     const {go} = useContext(GlobalContext)
     const d = useRef();
+    const handleCardClick = () => {
+        go('shredule');
+    };
+
 
     const sortedChanges = mockChanges.sort((a, b) => {
         if (a.day < b.day) {
@@ -101,48 +105,57 @@ const Home = ({id, fetchedUser}) => {
                         {((user) => {
                             const userExists = !!user;
                             if (userExists)
-                            return <> <Cell
-                                before={user.photo_200 ?
-                                    <Avatar
-                                        src={user.photo_200}/> : null}
-                                onClick={() => window.open(`https://vk.com/id${user.id}`)}
-                            >
-                                <div style={{display: 'flex', flexDirection: 'column', rowGap: 10}}>
-                                    {user?.first_name + " " + user?.last_name}
-                                </div>
-                            </Cell>
-                                <div style={{padding: 10}}>
-                                    <Button stretched size="l" mode="secondary"
-                                            onClick={() => go("shredule")}>
-                                        Открыть расписание
-                                    </Button>
-                                </div>
-                                <Group style={{padding: 10}}
-                                       header={<Header mode="secondary"
-                                                       style={{display: 'flex', flexDirection: 'row'}}
-                                                       indicator={
-                                                           <Counter size="s" mode="prominent">
-                                                               {mockChanges.length}
-                                                           </Counter>
-                                                       }>
-                                           Замены
-                                       </Header>}>
-                                    <Div>
-                                        {sortedChanges && sortedChanges.map((el, ) => {
-                                            return (<SimpleCard title={el.title} tag={el.tag} day={el.day}/>)
-                                        })}
-                                    </Div>
-                                </Group>
-                            </>
-                        else
-                            return <Cell
-                                disabled={true}
-                                before={<SkeletonAvatar/>}
-                                subtitle={<SkeletonText style={{height: 20, width: 140}}/>}
-                            >
-                                <SkeletonText style={{height: 20, width: 60}}/>&nbsp; <SkeletonText
-                                style={{height: 20, width: 100}}/>
-                            </Cell>
+                                return <> <Cell
+                                    before={user.photo_200 ?
+                                        <Avatar
+                                            src={user.photo_200}/> : null}
+                                    onClick={() => window.open(`https://vk.com/id${user.id}`)}
+                                >
+                                    <div style={{display: 'flex', flexDirection: 'column', rowGap: 10}}>
+                                        {user?.first_name + " " + user?.last_name}
+                                    </div>
+                                </Cell>
+                                    <div style={{padding: 10}}>
+                                        <Button stretched size="l" mode="primary"
+                                                onClick={() => go("shredule")}>
+                                            Открыть расписание
+                                        </Button>
+                                    </div>
+                                    <Group style={{padding: 10}}
+                                           header={<Header mode="secondary"
+                                                           style={{display: 'flex', flexDirection: 'row'}}
+                                                           indicator={
+                                                               <Counter size="s" mode="prominent">
+                                                                   {mockChanges.length}
+                                                               </Counter>
+                                                           }>
+                                               Замены
+                                           </Header>}>
+                                        <Div>
+                                            {sortedChanges &&
+                                                sortedChanges.map((el) => {
+                                                    return (
+                                                        <SimpleCard
+                                                            title={el.title}
+                                                            tag={el.tag}
+                                                            day={el.day}
+                                                            onClick={() => go("shredule")}
+                                                        />
+                                                    );
+                                                })}
+
+                                        </Div>
+                                    </Group>
+                                </>
+                            else
+                                return <Cell
+                                    disabled={true}
+                                    before={<SkeletonAvatar/>}
+                                    subtitle={<SkeletonText style={{height: 20, width: 140}}/>}
+                                >
+                                    <SkeletonText style={{height: 20, width: 60}}/>&nbsp; <SkeletonText
+                                    style={{height: 20, width: 100}}/>
+                                </Cell>
                         })(fetchedUser)}
                     </Group>
                 </div>
