@@ -25,23 +25,13 @@ export const SimpleCard = ({ title, tag, day, user }) => {
             }}
           >
             <div style={{ display: "flex", alignItems: "center", textAlign: 'center' }}>
-              {user && (
-                  <SimpleCell
-                      before={
-                        <Title>{tag}.</Title>
-                      }
-                      subtitle={user.desc}
-                  >
-                    {user.name}
-                  </SimpleCell>
-              )}
               <Title
                 level="1"
                 marginHeight={10}
                 style={{ marginRight: 15 }}
                 weight={"1"}
               >
-                {title}
+                {tag}. {title}
               </Title>
             </div>
             <Title style={{color: 'gray', fontSize: 12}}>{day}</Title>
