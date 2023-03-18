@@ -4,7 +4,6 @@ import {Panel, PanelHeader, Header, Button, Group, Cell, Div, Avatar, Placeholde
 
 import { SkeletonAvatar, SkeletonText } from '../components/Skeleton';
 import { GlobalContext } from '../context';
-import { Roles } from "../components/Roles/Roles.jsx";
 
 const Auth = ({ id, fetchedUser }) => {
     const { go } = useContext(GlobalContext)
