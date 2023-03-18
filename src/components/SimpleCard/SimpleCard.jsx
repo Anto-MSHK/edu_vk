@@ -12,7 +12,7 @@ import {
 } from "@vkontakte/vkui";
 import React from "react";
 
-export const SimpleCard = ({ title, tag, btnText, user }) => {
+export const SimpleCard = ({ title, tag, day, user }) => {
   return (
     <Group mode="plain">
       <Card mode="shadow">
@@ -28,7 +28,7 @@ export const SimpleCard = ({ title, tag, btnText, user }) => {
               {user && (
                   <SimpleCell
                       before={
-                        user.photo_200 ? <Avatar src={user.photo_200}/> : null
+                        <Title>{tag}.</Title>
                       }
                       subtitle={user.desc}
                   >
@@ -44,7 +44,7 @@ export const SimpleCard = ({ title, tag, btnText, user }) => {
                 {title}
               </Title>
             </div>
-            <Title style={{color: 'gray', fontSize: 12}}>Прочитано</Title>
+            <Title style={{color: 'gray', fontSize: 12}}>{day}</Title>
           </div>
         </Tappable>
       </Card>
