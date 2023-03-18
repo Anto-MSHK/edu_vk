@@ -43,16 +43,6 @@ const mockChanges = [
         tag: '1'
     },
     {
-        title: 'Замена',
-        day: '16 марта',
-        tag: '2'
-    },
-    {
-        title: 'Замена',
-        day: '19 марта',
-        tag: '2'
-    },
-    {
         title: 'Пары нет',
         day: '23 марта',
         tag: '1'
@@ -63,6 +53,23 @@ const mockChanges = [
 const Home = ({id, fetchedUser}) => {
     const {go} = useContext(GlobalContext)
     const d = useRef();
+
+    const sortedChanges = mockChanges.sort((a, b) => {
+        if (a.day < b.day) {
+            return -1;
+        } else if (a.day > b.day) {
+            return 1;
+        } else {
+            if (a.tag < b.tag) {
+                return -1;
+            } else if (a.tag > b.tag) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    });
+
 
     useEffect(() => {
         if (fetchedUser) return () => {
@@ -121,7 +128,7 @@ const Home = ({id, fetchedUser}) => {
                                            Замены
                                        </Header>}>
                                     <Div>
-                                        {mockChanges && mockChanges.map((el, ) => {
+                                        {sortedChanges && sortedChanges.map((el, ) => {
                                             return (<SimpleCard title={el.title} tag={el.tag} day={el.day}/>)
                                         })}
                                     </Div>
