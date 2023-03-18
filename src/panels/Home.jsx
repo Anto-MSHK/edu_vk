@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 
 import {
   Panel,
@@ -7,33 +7,74 @@ import {
   Button,
   Group,
   Div,
+  PanelHeaderBack,
+  PanelHeaderClose,
 } from "@vkontakte/vkui";
 
 import { SkeletonAvatar, SkeletonText } from "../components/Skeleton";
-import { GlobalContext } from "../context";
+
 import { CoupleCard } from "../components/CoupleCard/CoupleCard";
+import { GlobalContext } from "../context";
 
 const Home = ({ id, fetchedUser }) => {
+  const {go} = useContext(GlobalContext);
+  const mockSchedule = [
+    {
+      subject: 'Математика',
+      count: 1,
+      teacher: { name: 'Ирина Чумак', degree: 'к.ф.м' },
+      time: { from: '10:00', to: '10:50' },
+      type: 'практика',
+      room: '123'
+    },
+    {
+      subject: 'Русский язык',
+      count: 2,
+      teacher: { name: 'Какояша', degree: 'к.ф.м' },
+      time: { from: '8:00', to: '21:50' },
+      type: 'теория',
+      room: '321'
+    },
+    {
+      subject: 'БЖ',
+      count: 3,
+      teacher: { name: 'Душный чел', degree: 'душнила' },
+      time: { from: '0:00', to: '0:00' },
+      type: 'теория',
+      room: '231'
+    },
+  ]
   return (
     <Panel id={id}>
-      <PanelHeader>EDU.vk</PanelHeader>
-      <div />
+      <PanelHeader before={<PanelHeaderBack onClick={()=>go('signin')}/>}>
+        EDU.vk
+      </PanelHeader>
       <div
         style={{
           maxWidth: 600,
           width: "100%",
           marginInline: "auto",
           marginTop: 20,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px',
         }}
       >
-        <CoupleCard
-          subject={"Математика сложнейших"}
-          teacher={{ name: "Ирина Чумак", degree: "к.ф.м" }}
-          count={1}
-          time={{ from: "10:00", to: "10:50" }}
-          type={"практика"}
-          room={123}
-        />
+
+        {
+          mockSchedule.map((lesson) => (
+
+            <CoupleCard
+              key={lesson.count}
+              subject={lesson.subject}
+              teacher={lesson.teacher}
+              count={lesson.count}
+              time={lesson.time}
+              type={lesson.type}
+              room={lesson.room}
+            />
+          ))
+        }
       </div>
     </Panel>
   );

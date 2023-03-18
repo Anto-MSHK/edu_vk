@@ -7,6 +7,7 @@ import {
   Header,
   Panel,
   PanelHeader,
+  PanelHeaderClose,
   Title,
 } from "@vkontakte/vkui";
 import React, { useContext, useEffect, useRef } from "react";
@@ -45,7 +46,9 @@ const SignIn = ({ id, fetchedUser }) => {
   }, [fetchedUser]);
   return (
     <Panel id={id}>
-      <PanelHeader>EDU.vk</PanelHeader>
+      <PanelHeader before ={<PanelHeaderClose/>}>
+        EDU.vk
+        </PanelHeader>
       <div
         style={{
           maxWidth: 600,
@@ -116,7 +119,7 @@ const SignIn = ({ id, fetchedUser }) => {
                 );
             })(fetchedUser)}
           </Gradient>
-          <Button mode="link" size="m">
+          <Button mode="link" size="m" onClick={() => {go('auth')}}>
             Не хочу входить под своим именем
           </Button>
         </div>

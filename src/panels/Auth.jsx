@@ -27,7 +27,7 @@ const Auth = ({ id, fetchedUser }) => {
                                 </Button>
                             </Div>
                             <Div>
-                                <Button stretched size="l" mode="secondary" onClick={()=>go(index)}>
+                                <Button stretched size="l" mode="secondary" onClick={()=>go('signin')}>
                                     Вернуться на главную
                                 </Button>
                             </Div>
@@ -43,7 +43,7 @@ const Auth = ({ id, fetchedUser }) => {
     },[fetchedUser])
 
     return <Panel id={id}>
-        <PanelHeader>Пример</PanelHeader>
+        <PanelHeader>EDU.vk</PanelHeader>
         <div/>
         <div style={{maxWidth:600,width:"100%",marginInline:"auto", marginTop:20}}>
             <div ref={d}>
