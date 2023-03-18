@@ -36,7 +36,7 @@ const Home = ({ id, fetchedUser }) => {
     {
       subject: 'БЖ',
       count: 3,
-      teacher: { name: 'Душный чел', degree: 'душнила' },
+      teacher: { name: 'Антон', degree: '12' },
       time: { from: '0:00', to: '0:00' },
       type: 'теория',
       room: '231'
@@ -44,7 +44,7 @@ const Home = ({ id, fetchedUser }) => {
     {
       subject: 'БЖ',
       count: 4,
-      teacher: { name: 'Душный чел', degree: 'душнила' },
+      teacher: { name: 'Никита', degree: 'доцент' },
       time: { from: '0:00', to: '0:00' },
       type: 'теория',
       room: '231'
