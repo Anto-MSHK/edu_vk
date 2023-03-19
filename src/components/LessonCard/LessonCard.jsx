@@ -8,6 +8,7 @@ import {
   Counter,
   FormItem,
   FormLayout,
+  Header,
   IconButton,
   InfoRow,
   Input,
@@ -31,41 +32,36 @@ export const LessonCard = ({ subject, count, type, teacher, room, time }) => {
   const [shown, setShown] = React.useState(false);
   const [modal, setModal] = React.useState(null);
   const [formData, setFormData] = React.useState({
-    text: '',
-    time: '',
-  })
+    text: "",
+    time: "",
+  });
 
-  const notes = useSelector(state => state.notes.notes)
-  const [changedNotes, setChangedNotes] = React.useState([])
+  const notes = useSelector((state) => state.notes.notes);
+  const [changedNotes, setChangedNotes] = React.useState([]);
 
   useEffect(() => {
     const handleNotesChangeFormat = () => {
       if (notes.length) {
-        const subjectNotes = notes.filter((note) => note.subject === subject)
+        const subjectNotes = notes.filter((note) => note.subject === subject);
         if (subjectNotes.length) {
           const changedNotes = subjectNotes.map((note, index) => {
-           
             return {
               value: index,
-              label: note.text + ': ' + note.time,
-            }
-
-          })
-          setChangedNotes(changedNotes)
+              label: note.text + ": " + note.time,
+            };
+          });
+          setChangedNotes(changedNotes);
         }
-
       }
-
-    }
-    handleNotesChangeFormat()
-  }, [notes])
-  const dispatch = useDispatch()
+    };
+    handleNotesChangeFormat();
+  }, [notes]);
+  const dispatch = useDispatch();
 
   const onClick = (e) => {
     e.stopPropagation();
     setNotes([]);
   };
-
 
   const [teacherObj, setTeacherObj] = useState(undefined);
 
@@ -78,16 +74,18 @@ export const LessonCard = ({ subject, count, type, teacher, room, time }) => {
   const handleAddNote = (e) => {
     e.preventDefault();
     setFormData({
-      text: '',
-      time: '',
-    })
+      text: "",
+      time: "",
+    });
 
-    dispatch(addNote({
-      subject: subject,
-      text: formData.text,
-      time: formData.time,
-    }))
-  }
+    dispatch(
+      addNote({
+        subject: subject,
+        text: formData.text,
+        time: formData.time,
+      })
+    );
+  };
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevState) => ({ ...prevState, [name]: value }));
@@ -97,18 +95,20 @@ export const LessonCard = ({ subject, count, type, teacher, room, time }) => {
     <ModalRoot activeModal={modal}>
       <ModalCard id="select" onClose={() => setModal(null)}>
         <FormLayout onSubmit={handleAddNote}>
-          <FormItem top="Заметки" >
+          <FormItem top="Заметки">
             <ChipsInput
-              style={{ width: '100%' }}
               value={changedNotes ? changedNotes : []}
               disabled
+              style={{ width: "100%", marginBottom: 10 }}
             />
+            <Header mode="secondary">Создать заметку</Header>
             <Input
               type="text"
               name="text"
               value={formData.text}
               onChange={handleInputChange}
               placeholder="Текст"
+              style={{ marginBottom: 10 }}
             />
             <Input
               type="time"
@@ -116,33 +116,57 @@ export const LessonCard = ({ subject, count, type, teacher, room, time }) => {
               value={formData.time}
               onChange={handleInputChange}
               placeholder="Время для уведомления"
+              style={{ marginBottom: 10 }}
             />
-            <Button type="submit">Подтвердить</Button>
           </FormItem>
+          <Button type="submit">Подтвердить</Button>
         </FormLayout>
       </ModalCard>
     </ModalRoot>
   );
   return (
-      <SplitLayout style={{justifyContent: "center", height: "100%"}} modal={modalRoot}>
-        <SplitCol style={{padding: "10px"}}>
-          <Card mode="shadow" style={{}}>
-            <div style={{padding: "10px"}}>
-              <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-                <div style={{display: "flex", alignItems: "center"}}>
-                  <div>
-                    <div style={{display: "flex", alignItems: "center"}}>
-                      <Counter mode="primary" marginHeight={5} style={{padding: "2px", marginRight: "5px"}}>
-                        <Title level="4" style={{fontSize: "18px"}}>{count}</Title>
-                      </Counter>
-                      <Title level="3" marginHeight={5} style={{fontWeight: "bold", fontSize: "20px"}}>
-                        {subject}
+    <SplitLayout
+      style={{ justifyContent: "center", height: "100%" }}
+      modal={modalRoot}
+    >
+      <SplitCol style={{ padding: "10px" }}>
+        <Card mode="shadow" style={{}}>
+          <div style={{ padding: "10px" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <div>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <Counter
+                      mode="primary"
+                      marginHeight={5}
+                      style={{ padding: "2px", marginRight: "5px" }}
+                    >
+                      <Title level="4" style={{ fontSize: "18px" }}>
+                        {count}
                       </Title>
-                    </div>
+                    </Counter>
+                    <Title
+                      level="3"
+                      marginHeight={5}
+                      style={{ fontWeight: "bold", fontSize: "20px" }}
+                    >
+                      {subject}
+                    </Title>
                   </div>
+                </div>
                 {type && (
-                  <Title level="3" weight="semi-bold" style={{marginLeft: "10px"}}>
-                    ({type === "pr" ? "практика" : "теория"})
+                  <Title
+                    level="3"
+                    weight="semi-bold"
+                    style={{ marginLeft: "10px" }}
+                  >
+                    ({type === "pr" ? "пр." : "теор."})
                   </Title>
                 )}
               </div>
@@ -156,9 +180,6 @@ export const LessonCard = ({ subject, count, type, teacher, room, time }) => {
                       <InfoRow onClick={() => setModal("select")}>
                         Поставить напоминание
                       </InfoRow>
-                    </SimpleCell>
-                    <SimpleCell style={{ marginBottom: 5 }}>
-                      <InfoRow>Отметить</InfoRow>
                     </SimpleCell>
                   </div>
                 }
@@ -176,8 +197,10 @@ export const LessonCard = ({ subject, count, type, teacher, room, time }) => {
                 justifyContent: "space-between",
               }}
             >
-              <div style={{display: "flex", flexDirection: "column"}}>
-                <div style={{display: "flex", justifyContent: "space-between"}}>
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
                   <SimpleCell>
                     <InfoRow header="Время">
                       {time.from}-{time.to}

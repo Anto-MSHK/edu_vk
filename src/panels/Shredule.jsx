@@ -37,14 +37,7 @@ import { DayCard } from "../components/DayCard/DayCard";
 import {
   Icon16Dropdown,
   Icon20NewsfeedOutline,
-  Icon20PictureOutline,
-  Icon20ThumbsUpOutline,
   Icon20UsersOutline,
-  Icon24Filter,
-  Icon24NewsfeedOutline,
-  Icon24PictureOutline,
-  Icon24ThumbsUpOutline,
-  Icon24UsersOutline,
 } from "@vkontakte/icons";
 import { getUser } from "../store/hhtp";
 import NotesComponent from "../components/NotesComponent/NotesComponent";
@@ -63,12 +56,8 @@ const Shredule = ({ id, fetchedUser }) => {
 
   const [activePanel, setActivePanel] = useState("today");
 
-
-
   const [selected, setSelected] = React.useState("news");
   const [disabled, setDisabled] = React.useState(false);
-
-
 
   return (
     <Panel
@@ -84,17 +73,7 @@ const Shredule = ({ id, fetchedUser }) => {
       }}
     >
       <Div style={{ margin: "20px -10px 0 -10px" }}>
-        <PanelHeader
-          style={{ margin: "-10px 0" }}
-          before={
-            <PanelHeaderBack onClick={() => go("signin")} style={{ top: 0 }} />
-          }
-        >
-          <Text style={{left: 40, position: "absolute", cursor: 'pointer'}} onClick={() => go("home")} >
-            Замены
-          </Text>
-          Главная
-        </PanelHeader>
+        <PanelHeader style={{ margin: "-10px 0" }}>Главная</PanelHeader>
         <div
           style={{
             backgroundImage:
@@ -109,7 +88,12 @@ const Shredule = ({ id, fetchedUser }) => {
           <div style={{ width: "100%", marginBottom: -20 }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Cell
-                style={{ color: "white", padding: 20, top: 50, position: "absolute" }}
+                style={{
+                  color: "white",
+                  padding: 20,
+                  top: 50,
+                  position: "absolute",
+                }}
                 subtitle={
                   <Text style={{ color: "white", marginTop: 2 }}>
                     Факультет высшего образования
@@ -174,48 +158,21 @@ const Shredule = ({ id, fetchedUser }) => {
                       before={<Badge mode="prominent" />}
                       after={<Icon16Dropdown />}
                       selected={selected === "recommendations"}
-
                       onClick={() => setSelected("recommendations")}
                     >
                       Уведомления
                     </TabsItem>
 
-                    <Popover
-                      action="click"
-                      placement="top-end"
-                      content={
-                        <>
-                          <Header mode="secondary">Однокурсники</Header>
-                          <div>
-                            {allUsers &&
-                              allUsers.map((user) => (
-                                <SimpleCell
-                                  key={user.id}
-                                  before={<Avatar />}
-                                  subtitle={
-                                    <Text>
-                                      {user.is_vk_auth ? "авторизован" : ""}
-                                    </Text>
-                                  }
-                                >
-                                  {user.firstName} {user.lastName}
-                                </SimpleCell>
-                              ))}
-                          </div>
-                        </>
-                      }
+                    <TabsItem
+                      before={<Icon20UsersOutline />}
+                      after={<Icon16Dropdown />}
+                      selected={selected === "friends"}
+                      disabled={disabled}
+                      onClick={() => setSelected("friends")}
+                      contextMenu={<div>hello</div>}
                     >
-                      <TabsItem
-                        before={<Icon20UsersOutline />}
-                        after={<Icon16Dropdown />}
-                        selected={selected === "friends"}
-                        disabled={disabled}
-                        onClick={() => setSelected("friends")}
-                        contextMenu={<div>hello</div>}
-                      >
-                        Однокурсники
-                      </TabsItem>
-                    </Popover>
+                      Однокурсники
+                    </TabsItem>
                   </HorizontalScroll>
                 </Tabs>
               </Group>
@@ -223,18 +180,30 @@ const Shredule = ({ id, fetchedUser }) => {
           </div>
         </div>
       </Div>
-      {
-        selected === 'groups' ?
-          <div>
-            {!isLoading &&
-              data &&
-              data[0].days.map((day) => {
-                return <DayCard key={day.count} data={day} />;
-              })}
-          </div>
-          :
-          <NotesComponent/>
-      }
+      {selected === "groups" ? (
+        <div>
+          {!isLoading &&
+            data &&
+            data[0].days.map((day) => {
+              return <DayCard key={day.count} data={day} />;
+            })}
+        </div>
+      ) : selected === "recommendations" ? (
+        <NotesComponent />
+      ) : (
+        <Group>
+          {allUsers &&
+            allUsers.map((user) => (
+              <SimpleCell
+                key={user.id}
+                before={<Avatar />}
+                subtitle={<Text>{user.is_vk_auth ? "авторизован" : ""}</Text>}
+              >
+                {user.firstName} {user.lastName}
+              </SimpleCell>
+            ))}
+        </Group>
+      )}
     </Panel>
   );
 };

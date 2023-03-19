@@ -41,6 +41,10 @@ const SignIn = ({ id, fetchedUser }) => {
               setIdUserDB(user.id);
               return;
             }
+				setIsPhoneExist((prev) => {
+					if (prev === null) return false;
+					else return prev;
+				 });
             // if (isPhoneExist === null) setIsPhoneExist(false);
           });
         });

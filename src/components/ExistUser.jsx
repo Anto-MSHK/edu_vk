@@ -98,7 +98,7 @@ export const ExistUser = ({ fetchedUser, userId }) => {
           mode="link"
           size="m"
           onClick={() => {
-            go("auth");
+            go("shredule");
           }}
         >
           Не хочу входить под своим именем

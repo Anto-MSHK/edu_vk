@@ -126,7 +126,7 @@ export const NotExistUser = ({ fetchedUser, userId }) => {
                       key={group.id}
                       size="l"
                       mode="primary"
-                      onClick={() => go("home")}
+                      onClick={() => go("shredule")}
                     >
                       {group.name}
                     </Button>

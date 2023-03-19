@@ -5,6 +5,7 @@ import {
   Panel,
   PanelHeader,
   Gradient,
+  Cell,
 } from "@vkontakte/vkui";
 import React from "react";
 import { LessonCard } from "../LessonCard/LessonCard";
@@ -36,8 +37,8 @@ export const DayCard = ({ data }) => {
       >
         <Title>{weekDays[`${data.count}`]}</Title>
       </Gradient>
-      <div style={{ padding: 15 }}>
-        {data &&
+      <div style={{}}>
+        {data && data.lessons.length > 0 ? (
           data.lessons.map((lesson) => {
             return (
               <LessonCard
@@ -50,7 +51,12 @@ export const DayCard = ({ data }) => {
                 room={lesson.room.name}
               />
             );
-          })}
+          })
+        ) : (
+          <Cell>
+            <Title>Выходной</Title>
+          </Cell>
+        )}
       </div>
     </Group>
   );
