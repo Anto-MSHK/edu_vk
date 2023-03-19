@@ -44,50 +44,57 @@ const App = () => {
   let isExist = false;
   useEffect(() => {
     bridge.subscribe(VKBridgeSubscribeHandler);
-    bridge.send("VKWebAppGetUserInfo").then((data) => {
-      getUser().then((res) => {
-        res.map((user) => {
-          if (user.lastName === data.last_name && user.is_vk_auth) {
-            isExist = true;
-            return;
-          }
+
+    //  bridge.send("VKWebAppGetUserInfo").then((data) => {
+    //    getUser().then((res) => {
+    //      res.map((user) => {
+    //        if (user.lastName === data.last_name && user.is_vk_auth) {
+    //          isExist = true;
+    //          return;
+    //        }
+    //      });
+    //    });
+    //  });
+
+    bridge
+      .send("VKWebAppShowSlidesSheet", {
+        slides: [
+          {
+            media: {
+              blob: blob,
+              type: "image",
+            },
+            title: "Вы увидете расписание через одно мгновение!",
+            subtitle:
+              "Просто предоставьте мне ваш номер телефона, и я сразу найду вашу группу и уведомления!",
+          },
+        ],
+      })
+      .then((data) => {
+        bridge.send("VKWebAppGetUserInfo").then((res) => {
+          bridge
+            .send("VKWebAppGetPhoneNumber")
+            .then((dataPhone) => {
+              User({ ...res, ...dataPhone });
+            })
+            .catch((error) => {
+              User({ ...res });
+            });
+        });
+      })
+      .catch((error) => {
+        bridge.send("VKWebAppGetUserInfo").then((res) => {
+          bridge
+            .send("VKWebAppGetPhoneNumber")
+            .then((dataPhone) => {
+              User({ ...res, ...dataPhone });
+            })
+            .catch((error) => {
+              User({ ...res });
+            });
         });
       });
-    });
-    if (!isExist) {
-      bridge
-        .send("VKWebAppShowSlidesSheet", {
-          slides: [
-            {
-              media: {
-                blob: blob,
-                type: "image",
-              },
-              title: "Вы увидете расписание через одно мгновение!",
-              subtitle:
-                "Просто предоставьте мне ваш номер телефона, и я сразу найду вашу группу и уведомления!",
-            },
-          ],
-        })
-        .then((data) => {
-          if (data.result) {
-            bridge.send("VKWebAppGetUserInfo").then((res) => {
-              bridge
-                .send("VKWebAppGetPhoneNumber")
-                .then((dataPhone) => {
-                  User({ ...res, ...dataPhone });
-                })
-                .catch((error) => {
-                  User({ ...res });
-                });
-            });
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-    return () => bridge.unsubscribe(VKBridgeSubscribeHandler);
+    //  return () => bridge.unsubscribe(VKBridgeSubscribeHandler);
   }, []);
 
   return (
@@ -103,7 +110,7 @@ const App = () => {
                   <Gioconda id="gioconda" />
                   <Error id="404" />
                   <Auth id="auth" fetchedUser={fetchedUser} />
-                  <Shredule id="shredule" fetchedUser = {fetchedUser} />
+                  <Shredule id="shredule" fetchedUser={fetchedUser} />
                 </View>
               </GetRoutes>
             </SplitCol>
