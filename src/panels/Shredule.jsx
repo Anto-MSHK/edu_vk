@@ -47,8 +47,9 @@ import {
   Icon24UsersOutline,
 } from "@vkontakte/icons";
 import { getUser } from "../store/hhtp";
+import NotesComponent from "../components/NotesComponent/NotesComponent";
 
-const Shredule = ({ id, fetchedUser}) => {
+const Shredule = ({ id, fetchedUser }) => {
   const { data, error, isLoading } = useGetScheduleByNameQuery("bulbasaur");
   const [allUsers, setAllUsers] = useState();
   useEffect(() => {
@@ -60,12 +61,12 @@ const Shredule = ({ id, fetchedUser}) => {
 
   const [activePanel, setActivePanel] = useState("today");
 
-  const handleChange = (day) => {
-    setActivePanel(day);
-  };
+
 
   const [selected, setSelected] = React.useState("news");
   const [disabled, setDisabled] = React.useState(false);
+
+
 
   return (
     <Panel
@@ -168,7 +169,7 @@ const Shredule = ({ id, fetchedUser}) => {
                       before={<Badge mode="prominent" />}
                       after={<Icon16Dropdown />}
                       selected={selected === "recommendations"}
-                      disabled={disabled}
+
                       onClick={() => setSelected("recommendations")}
                     >
                       Уведомления
@@ -217,14 +218,18 @@ const Shredule = ({ id, fetchedUser}) => {
           </div>
         </div>
       </Div>
-
-      <div>
-        {!isLoading &&
-          data &&
-          data[0].days.map((day) => {
-            return <DayCard key={day.count} data={day} />;
-          })}
-      </div>
+      {
+        selected === 'groups' ?
+          <div>
+            {!isLoading &&
+              data &&
+              data[0].days.map((day) => {
+                return <DayCard key={day.count} data={day} />;
+              })}
+          </div>
+          :
+          <NotesComponent/>
+      }
     </Panel>
   );
 };

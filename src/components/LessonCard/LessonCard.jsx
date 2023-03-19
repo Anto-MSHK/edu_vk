@@ -1,12 +1,16 @@
 import React, { useRef, useState, useEffect } from "react";
 import {
   Avatar,
+  Button,
   Card,
+  Chip,
   ChipsInput,
   Counter,
   FormItem,
+  FormLayout,
   IconButton,
   InfoRow,
+  Input,
   ModalCard,
   ModalRoot,
   PanelHeader,
@@ -19,20 +23,56 @@ import {
 import { Icon16Clear, Icon16MoreVertical } from "@vkontakte/icons";
 import { Popover } from "@vkontakte/vkui/dist/components/Popover/Popover";
 import { getUser } from "../../store/hhtp";
+import { useDispatch, useSelector } from "react-redux";
+import { addNote } from "../../store/Slices/notesSlice";
+import { ChipsInputBase } from "@vkontakte/vkui/dist/components/ChipsInputBase/ChipsInputBase";
 
 export const LessonCard = ({ subject, count, type, teacher, room, time }) => {
   const [shown, setShown] = React.useState(false);
   const [modal, setModal] = React.useState(null);
-  const [notes, setNotes] = React.useState([
+  const [formData, setFormData] = React.useState({
+    text: '',
+    time: '',
+  })
+
+  const notes = useSelector(state => state.notes.notes)
+  const [changedNotes, setChangedNotes] = React.useState([])
+
+  useEffect(() => {
+    const handleNotesChangeFormat = () => {
+      if (notes.length) {
+        const subjectNotes = notes.filter((note) => note.subject === subject)
+        console.log(notes)
+        console.log(subjectNotes)
+        if (subjectNotes.length) {
+          const changedNotes = subjectNotes.map((note, index) => {
+           
+            return {
+              value: index,
+              label: note.text + ': ' + note.time,
+            }
+
+          })
+          setChangedNotes(changedNotes)
+        }
+
+      }
+
+    }
+    handleNotesChangeFormat()
+  }, [notes])
+  const dispatch = useDispatch()
+  /* const [notes, setNotes] = React.useState([
     {
       value: "gym",
       label: "Надо подкачаться",
     },
-  ]);
+  ]); */
   const onClick = (e) => {
     e.stopPropagation();
     setNotes([]);
   };
+
 
   const [teacherObj, setTeacherObj] = useState(undefined);
 
@@ -42,23 +82,50 @@ export const LessonCard = ({ subject, count, type, teacher, room, time }) => {
     });
   }, []);
 
+  const handleAddNote = (e) => {
+    e.preventDefault();
+    setFormData({
+      text: '',
+      time: '',
+    })
+
+    dispatch(addNote({
+      subject: subject,
+      text: formData.text,
+      time: formData.time,
+    }))
+  }
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevState) => ({ ...prevState, [name]: value }));
+  };
+
   const modalRoot = (
     <ModalRoot activeModal={modal}>
       <ModalCard id="select" onClose={() => setModal(null)}>
-        <FormItem top="Заметки">
-          <ChipsInput
-            value={notes}
-            after={
-              <IconButton
-                hoverMode="opacity"
-                aria-label="Очистить поле"
-                onClick={onClick}
-              >
-                <Icon16Clear />
-              </IconButton>
-            }
-          />
-        </FormItem>
+        <FormLayout onSubmit={handleAddNote}>
+          <FormItem top="Заметки" >
+            <ChipsInput
+              style={{ width: '100%' }}
+              value={changedNotes ? changedNotes : []}
+            />
+            <Input
+              type="text"
+              name="text"
+              value={formData.text}
+              onChange={handleInputChange}
+              placeholder="Текст"
+            />
+            <Input
+              type="text"
+              name="time"
+              value={formData.time}
+              onChange={handleInputChange}
+              placeholder="Время для уведомления"
+            />
+            <Button type="submit">Подтвердить</Button>
+          </FormItem>
+        </FormLayout>
       </ModalCard>
     </ModalRoot>
   );
