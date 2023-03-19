@@ -11,6 +11,19 @@ import {
   Avatar,
   Placeholder,
   PanelHeaderBack,
+  UsersStack,
+  FormItem,
+  Progress,
+  Checkbox,
+  CustomSelect,
+  TabsItem,
+  Counter,
+  Badge,
+  HorizontalScroll,
+  Tabs,
+  SimpleCell,
+  Title,
+  Text,
 } from "@vkontakte/vkui";
 
 import { SkeletonAvatar, SkeletonText } from "../components/Skeleton";
@@ -18,43 +31,21 @@ import { GlobalContext } from "../context";
 import { LessonCard } from "../components/LessonCard/LessonCard.jsx";
 import { Popover } from "@vkontakte/vkui/dist/components/Popover/Popover.js";
 import { useGetScheduleByNameQuery } from "../store/services/scheduleService";
+import { DayCard } from "../components/DayCard/DayCard";
+import {
+  Icon16Dropdown,
+  Icon20NewsfeedOutline,
+  Icon20PictureOutline,
+  Icon20ThumbsUpOutline,
+  Icon20UsersOutline,
+  Icon24NewsfeedOutline,
+  Icon24PictureOutline,
+  Icon24ThumbsUpOutline,
+  Icon24UsersOutline,
+} from "@vkontakte/icons";
 
 const Shredule = ({ id }) => {
   const { data, error, isLoading } = useGetScheduleByNameQuery("bulbasaur");
-  const mockSchedule = [
-    {
-      subject: "Математика",
-      count: 1,
-      teacher: { name: "Ирина Чумак", degree: "к.ф.м" },
-      time: { from: "10:00", to: "10:50" },
-      type: "практика",
-      room: "123",
-    },
-    {
-      subject: "Русский язык",
-      count: 2,
-      teacher: { name: "Какояша", degree: "к.ф.м" },
-      time: { from: "8:00", to: "21:50" },
-      type: "теория",
-      room: "321",
-    },
-    {
-      subject: "БЖ",
-      count: 3,
-      teacher: { name: "Антон", degree: "12" },
-      time: { from: "0:00", to: "0:00" },
-      type: "теория",
-      room: "231",
-    },
-    {
-      subject: "БЖ",
-      count: 4,
-      teacher: { name: "Никита", degree: "доцент" },
-      time: { from: "0:00", to: "0:00" },
-      type: "теория",
-      room: "231",
-    },
-  ];
 
   const buttons = [
     "Понедельник",
@@ -67,70 +58,139 @@ const Shredule = ({ id }) => {
 
   const { go } = useContext(GlobalContext);
 
+  const [selected, setSelected] = React.useState("news");
+  const [disabled, setDisabled] = React.useState(false);
+
   return (
-    <Panel id={id}>
-      <PanelHeader before={<PanelHeaderBack onClick={() => go("home")} />}>
-        Сегодня
-      </PanelHeader>
-      <Group>
+    <Panel
+      id={id}
+      style={{
+        maxWidth: 800,
+        width: "100%",
+        marginInline: "auto",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+      }}
+    >
+      <Div style={{ margin: "20px -10px 0 -10px" }}>
+        <PanelHeader
+          style={{ margin: "-10px 0" }}
+          before={
+            <PanelHeaderBack onClick={() => go("home")} style={{ top: 0 }} />
+          }
+        >
+          Главная
+        </PanelHeader>
         <div
           style={{
-            maxWidth: 600,
-            width: "100%",
-            marginInline: "auto",
-            marginTop: 20,
+            backgroundImage:
+              "linear-gradient(135deg, #f24973 0%, #3948e6 100%)",
+            height: 300,
             display: "flex",
-            flexDirection: "column",
-            gap: "10px",
+            alignItems: "flex-end",
+            justifyContent: "center",
+            borderRadius: 12,
           }}
         >
-          {!isLoading &&
-            data &&
-            data[0].days[0].lessons.map((lesson) => {
-              return (
-                <LessonCard
-                  key={lesson.count}
-                  subject={lesson.subject.name}
-                  teacher={lesson.userId}
-                  count={lesson.count}
-                  time={{ from: lesson.time_from, to: lesson.time_to }}
-                  type={lesson.type}
-                  room={lesson.room.name}
-                />
-              );
-            })}
-          <Popover
-            action="hover"
-            placement="top-end"
-            content={
-              <Div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "10px",
-                }}
+          <div style={{ width: "100%", marginBottom: -20 }}>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <Cell
+                style={{ color: "white", padding: 20 }}
+                subtitle={
+                  <Text style={{ color: "white", marginTop: 2 }}>
+                    Факультет высшего образования
+                  </Text>
+                }
               >
-                {buttons &&
-                  buttons.map((el) => <Button mode={"secondary"}>{el}</Button>)}
-              </Div>
-            }
-          >
-            <div style={{ padding: 5 }}>
-              <Button style={{ width: "100%", marginBottom: 10 }}>
-                Другой день
-              </Button>
+                <Title high={1} style={{ color: "white", fontSize: 26 }}>
+                  Группа ВИС-21
+                </Title>
+              </Cell>
+              <Cell
+                before={
+                  <Avatar
+                    size={35}
+                    src="#"
+                    initials="??"
+                    gradientColor="blue"
+                    style={{ margin: "10px 10px 0 0" }}
+                  />
+                }
+                style={{ color: "white", padding: 20 }}
+                subtitle={
+                  <Text
+                    style={{
+                      color: "white",
+                      fontSize: 12,
+                      margin: "-6px 0 0 0",
+                    }}
+                  >
+                    авторизован
+                  </Text>
+                }
+              >
+                <Title
+                  style={{
+                    color: "white",
+                    fontSize: 18,
+                    margin: "6px 0 0 0",
+                  }}
+                >
+                  Антон Мащенко
+                </Title>
+              </Cell>
             </div>
-          </Popover>
-          <Button
-            style={{ marginBottom: 10 }}
-            size="sm"
-            mode="secondary"
-            onClick={() => go("home")}
-          >
-            Просмотреть замены
-          </Button>
+            <Panel>
+              <Group>
+                <FormItem id="progresslabel" top="До конца пары 1 час">
+                  <Progress aria-labelledby="progresslabel" value={40} />
+                </FormItem>
+                <Tabs mode={"accent"}>
+                  <HorizontalScroll arrowSize="m">
+                    <TabsItem
+                      before={<Icon20NewsfeedOutline />}
+                      after={<Icon16Dropdown />}
+                      selected={selected === "groups"}
+                      disabled={disabled}
+                      onClick={() => setSelected("groups")}
+                    >
+                      Раписание
+                    </TabsItem>
+                    <TabsItem
+                      before={<Badge mode="prominent" />}
+                      after={<Icon16Dropdown />}
+                      selected={selected === "recommendations"}
+                      disabled={disabled}
+                      onClick={() => setSelected("recommendations")}
+                    >
+                      Уведомления
+                    </TabsItem>
+                    <TabsItem
+                      before={<Icon20UsersOutline />}
+                      after={<Icon16Dropdown />}
+                      selected={selected === "friends"}
+                      disabled={disabled}
+                      onClick={() => setSelected("friends")}
+                    >
+                      Однокурсники
+                    </TabsItem>
+                  </HorizontalScroll>
+                </Tabs>
+              </Group>
+            </Panel>
+          </div>
         </div>
-      </Group>
+      </Div>
+
+      <div>
+        {!isLoading &&
+          data &&
+          data[0].days.map((day) => {
+            return <DayCard key={day.count} data={day} />;
+          })}
+      </div>
     </Panel>
   );
 };
