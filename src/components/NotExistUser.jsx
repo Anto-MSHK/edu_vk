@@ -16,7 +16,7 @@ import {
 import { SkeletonAvatar, SkeletonText } from "./Skeleton";
 import { useContext, useEffect, useRef, useState } from "react";
 import { GlobalContext } from "../context";
-import { getUser } from "../store/hhtp";
+import {getUser, setActiveUser} from "../store/hhtp";
 export const NotExistUser = ({ fetchedUser, userId }) => {
   const { go } = useContext(GlobalContext);
   const d = useRef();

@@ -59,6 +59,8 @@ const Shredule = ({ id, fetchedUser }) => {
     });
   }, []);
 
+  const { go } = useContext(GlobalContext);
+
   const [activePanel, setActivePanel] = useState("today");
 
 
@@ -88,6 +90,9 @@ const Shredule = ({ id, fetchedUser }) => {
             <PanelHeaderBack onClick={() => go("signin")} style={{ top: 0 }} />
           }
         >
+          <Text style={{left: '11%', position: "absolute", cursor: 'pointer'}} onClick={() => go("home")} >
+            Замены
+          </Text>
           Главная
         </PanelHeader>
         <div
