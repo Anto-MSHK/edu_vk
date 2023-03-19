@@ -16,11 +16,13 @@ import {
 import { SkeletonAvatar, SkeletonText } from "./Skeleton";
 import { useContext, useEffect, useRef, useState } from "react";
 import { GlobalContext } from "../context";
-import {getUser, setActiveUser} from "../store/hhtp";
+import { getUser, setActiveUser } from "../store/hhtp";
+import { useGetScheduleByNameQuery } from "../store/services/scheduleService";
 export const NotExistUser = ({ fetchedUser, userId }) => {
   const { go } = useContext(GlobalContext);
   const d = useRef();
   const [isNameExist, setIsNameExist] = useState(null);
+  const { data, error, isLoading } = useGetScheduleByNameQuery("");
 
   useEffect(() => {
     if (fetchedUser !== null)
@@ -31,6 +33,10 @@ export const NotExistUser = ({ fetchedUser, userId }) => {
               setIsNameExist(true);
               return;
             }
+          });
+          setIsNameExist((prev) => {
+            if (prev === null) return false;
+            else return prev;
           });
         });
       } else {
@@ -105,15 +111,26 @@ export const NotExistUser = ({ fetchedUser, userId }) => {
           ) : (
             <>
               <Header mode="secondary">
-                Мы не смогли найти о вас информацию, чтобы облегчить вам вход :
+                {
+                  "Мы не смогли найти о вас информацию, чтобы облегчить вам вход :( "
+                }
               </Header>
               <>
-                <Button size="l" mode="primary" onClick={() => go("home")}>
-                  Я студент
-                </Button>
-                <Button size="l" mode="primary" onClick={() => go("home")}>
-                  Я преподаватель
-                </Button>
+                <Title style={{ fontSize: 20, marginBottom: 20 }}>
+                  Найдите вашу группу:
+                </Title>
+                {!isLoading &&
+                  data &&
+                  data.map((group) => (
+                    <Button
+                      key={group.id}
+                      size="l"
+                      mode="primary"
+                      onClick={() => go("home")}
+                    >
+                      {group.name}
+                    </Button>
+                  ))}
               </>
             </>
           )}

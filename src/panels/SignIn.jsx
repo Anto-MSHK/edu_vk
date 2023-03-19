@@ -22,9 +22,15 @@ const SignIn = ({ id, fetchedUser }) => {
   const [isPhoneExist, setIsPhoneExist] = useState(null);
   const [idUserDB, setIdUserDB] = useState(null);
   useEffect(() => {
-    if (fetchedUser !== null)
-      if (!fetchedUser.phone_number) setIsPhoneExist(false);
-      else {
+    if (fetchedUser !== null) {
+      console.log(fetchedUser);
+      if (
+        fetchedUser.phone_number === undefined ||
+        fetchedUser.phone_number === null
+      ) {
+        console.log("why");
+        setIsPhoneExist(false);
+      } else {
         getUser().then((res) => {
           res.map((user) => {
             if (
@@ -33,11 +39,13 @@ const SignIn = ({ id, fetchedUser }) => {
               console.log(user.phone + " " + fetchedUser.phone_number);
               setIsPhoneExist(true);
               setIdUserDB(user.id);
+              return;
             }
-            return;
+            // if (isPhoneExist === null) setIsPhoneExist(false);
           });
         });
       }
+    }
   }, [fetchedUser]);
   return (
     <Panel id={id}>
