@@ -25,6 +25,7 @@ import {
   Title,
   Text,
   SubnavigationButton,
+  PanelHeaderClose,
 } from "@vkontakte/vkui";
 
 import { SkeletonAvatar, SkeletonText } from "../components/Skeleton";
@@ -47,7 +48,7 @@ import {
 } from "@vkontakte/icons";
 import { getUser } from "../store/hhtp";
 
-const Shredule = ({ id }) => {
+const Shredule = ({ id, fetchedUser}) => {
   const { data, error, isLoading } = useGetScheduleByNameQuery("bulbasaur");
   const [allUsers, setAllUsers] = useState();
   useEffect(() => {
@@ -85,7 +86,7 @@ const Shredule = ({ id }) => {
         <PanelHeader
           style={{ margin: "-10px 0" }}
           before={
-            <PanelHeaderBack onClick={() => go("home")} style={{ top: 0 }} />
+            <PanelHeaderBack onClick={() => go("signin")} style={{ top: 0 }} />
           }
         >
           <Text style={{left: '11%', position: "absolute", cursor: 'pointer'}} onClick={() => go("home")} >
@@ -122,7 +123,7 @@ const Shredule = ({ id }) => {
                 before={
                   <Avatar
                     size={35}
-                    src="#"
+                    src={fetchedUser.photo_200}
                     initials="??"
                     gradientColor="blue"
                     style={{ margin: "10px 10px 0 0" }}
@@ -148,7 +149,7 @@ const Shredule = ({ id }) => {
                     margin: "6px 0 0 0",
                   }}
                 >
-                  Антон Мащенко
+                  {fetchedUser.first_name} {fetchedUser.last_name}
                 </Title>
               </Cell>
             </div>
