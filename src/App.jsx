@@ -26,6 +26,7 @@ const Error = React.lazy(() => import("./panels/Error"));
 const Auth = React.lazy(() => import("./panels/Auth.jsx"));
 import { blob } from "./photo";
 import { getUser } from "./store/hhtp";
+import { useSelector } from "react-redux";
 
 const App = () => {
   const { go } = useContext(GlobalContext);
@@ -33,6 +34,7 @@ const App = () => {
 
   const { path, appearance, Appearance } = useContext(GlobalContext);
   const [fetchedUser, User] = useState(null);
+  const notes = useSelector(state => state.notes.notes)
 
   const VKBridgeSubscribeHandler = ({ detail: { type, data } }) => {
     if (type === "VKWebAppUpdateConfig") {
@@ -42,6 +44,9 @@ const App = () => {
   };
 
   let isExist = false;
+
+
+
   useEffect(() => {
     bridge.subscribe(VKBridgeSubscribeHandler);
 
@@ -96,6 +101,28 @@ const App = () => {
       });
     //  return () => bridge.unsubscribe(VKBridgeSubscribeHandler);
   }, []);
+
+  /* function checkEvents(events) {
+    const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const matchingEvent = events.find(event => event.time === currentTime);
+
+    if (matchingEvent) {
+      const notification = {
+        message: `Время настало для "${matchingEvent.title}"!`,
+        silent: false
+      };
+
+      bridge.send("VKWebAppTapticNotificationOccurred", { "type": "success" });
+      bridge.send("VKWebAppSendNotification", notification);
+    }
+
+    const interval = 1000 * 60 * 1; // 5 минут в миллисекундах
+    setTimeout(() => checkEvents(events), interval);
+  }
+
+  checkEvents(notes); */
+
+
 
   return (
     <ConfigProvider appearance={appearance}>
