@@ -14,7 +14,8 @@ import {
 import { SkeletonAvatar, SkeletonText } from "./Skeleton";
 import { useContext, useEffect, useRef, useState } from "react";
 import { GlobalContext } from "../context";
-export const ExistUser = ({ fetchedUser }) => {
+import { setActiveUser } from "../store/hhtp";
+export const ExistUser = ({ fetchedUser, userId }) => {
   const { go } = useContext(GlobalContext);
   const d = useRef();
   return (
@@ -68,7 +69,14 @@ export const ExistUser = ({ fetchedUser }) => {
                     {user?.first_name + " " + user?.last_name}
                   </Title>
 
-                  <Button size="l" mode="primary" onClick={() => go("home")}>
+                  <Button
+                    size="l"
+                    mode="primary"
+                    onClick={() => {
+                      setActiveUser(userId);
+                      go("shredule");
+                    }}
+                  >
                     Да, это я!
                   </Button>
                 </>

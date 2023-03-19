@@ -20,17 +20,19 @@ import { getUser } from "./../store/hhtp";
 
 const SignIn = ({ id, fetchedUser }) => {
   const [isPhoneExist, setIsPhoneExist] = useState(null);
+  const [idUserDB, setIdUserDB] = useState(null);
   useEffect(() => {
-    console.log("fetchedUser");
-    console.log(fetchedUser);
     if (fetchedUser !== null)
       if (!fetchedUser.phone_number) setIsPhoneExist(false);
       else {
         getUser().then((res) => {
           res.map((user) => {
-            if (user.phone === fetchedUser.phone_number) {
+            if (
+              user.phone.substring(1) === fetchedUser.phone_number.substring(1)
+            ) {
               console.log(user.phone + " " + fetchedUser.phone_number);
               setIsPhoneExist(true);
+              setIdUserDB(user.id);
             }
             return;
           });
@@ -43,9 +45,9 @@ const SignIn = ({ id, fetchedUser }) => {
       {isPhoneExist === null ? (
         <Spinner size="large" style={{ margin: "20px 0" }} />
       ) : isPhoneExist ? (
-        <ExistUser fetchedUser={fetchedUser} />
+        <ExistUser fetchedUser={fetchedUser} userId={idUserDB} />
       ) : (
-        <NotExistUser fetchedUser={fetchedUser} />
+        <NotExistUser fetchedUser={fetchedUser} userId={idUserDB} />
       )}
     </Panel>
   );

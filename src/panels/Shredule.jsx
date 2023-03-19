@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useRef, useState} from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom/client";
 import {
   Panel,
@@ -24,6 +24,7 @@ import {
   SimpleCell,
   Title,
   Text,
+  SubnavigationButton,
 } from "@vkontakte/vkui";
 
 import { SkeletonAvatar, SkeletonText } from "../components/Skeleton";
@@ -38,20 +39,29 @@ import {
   Icon20PictureOutline,
   Icon20ThumbsUpOutline,
   Icon20UsersOutline,
+  Icon24Filter,
   Icon24NewsfeedOutline,
   Icon24PictureOutline,
   Icon24ThumbsUpOutline,
   Icon24UsersOutline,
 } from "@vkontakte/icons";
+import { getUser } from "../store/hhtp";
 
 const Shredule = ({ id }) => {
   const { data, error, isLoading } = useGetScheduleByNameQuery("bulbasaur");
+  const [allUsers, setAllUsers] = useState();
+  useEffect(() => {
+    getUser().then((res) => {
+      const newRes = res.filter((res) => res.type !== "teacher");
+      setAllUsers(newRes);
+    });
+  }, []);
 
-    const [activePanel, setActivePanel] = useState('today');
+  const [activePanel, setActivePanel] = useState("today");
 
-    const handleChange = (day) => {
-        setActivePanel(day);
-    }
+  const handleChange = (day) => {
+    setActivePanel(day);
+  };
 
   const [selected, setSelected] = React.useState("news");
   const [disabled, setDisabled] = React.useState(false);
@@ -142,7 +152,7 @@ const Shredule = ({ id }) => {
                 <FormItem id="progresslabel" top="До конца пары 1 час">
                   <Progress aria-labelledby="progresslabel" value={40} />
                 </FormItem>
-                <Tabs mode={"accent"}>
+                <Tabs mode={"default"}>
                   <HorizontalScroll arrowSize="m">
                     <TabsItem
                       before={<Icon20NewsfeedOutline />}
@@ -162,15 +172,43 @@ const Shredule = ({ id }) => {
                     >
                       Уведомления
                     </TabsItem>
-                    <TabsItem
-                      before={<Icon20UsersOutline />}
-                      after={<Icon16Dropdown />}
-                      selected={selected === "friends"}
-                      disabled={disabled}
-                      onClick={() => setSelected("friends")}
+
+                    <Popover
+                      action="click"
+                      placement="top-end"
+                      content={
+                        <>
+                          <Header mode="secondary">Однокурсники</Header>
+                          <div>
+                            {allUsers &&
+                              allUsers.map((user) => (
+                                <SimpleCell
+                                  key={user.id}
+                                  before={<Avatar />}
+                                  subtitle={
+                                    <Text>
+                                      {user.is_vk_auth ? "авторизован" : ""}
+                                    </Text>
+                                  }
+                                >
+                                  {user.firstName} {user.lastName}
+                                </SimpleCell>
+                              ))}
+                          </div>
+                        </>
+                      }
                     >
-                      Однокурсники
-                    </TabsItem>
+                      <TabsItem
+                        before={<Icon20UsersOutline />}
+                        after={<Icon16Dropdown />}
+                        selected={selected === "friends"}
+                        disabled={disabled}
+                        onClick={() => setSelected("friends")}
+                        contextMenu={<div>hello</div>}
+                      >
+                        Однокурсники
+                      </TabsItem>
+                    </Popover>
                   </HorizontalScroll>
                 </Tabs>
               </Group>

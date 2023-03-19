@@ -10,7 +10,12 @@ export const $api = axios.create({
 export const getUser = async (id) => {
   const curId = id ? id : "";
   return await $api.get("user/get/" + curId).then((res) => {
-    console.log(res.data);
+    return res.data;
+  });
+};
+
+export const setActiveUser = async (id) => {
+  return await $api.put("user/set-active/" + id).then((res) => {
     return res.data;
   });
 };

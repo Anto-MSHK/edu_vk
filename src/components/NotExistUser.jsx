@@ -17,7 +17,7 @@ import { SkeletonAvatar, SkeletonText } from "./Skeleton";
 import { useContext, useEffect, useRef, useState } from "react";
 import { GlobalContext } from "../context";
 import { getUser } from "../store/hhtp";
-export const NotExistUser = ({ fetchedUser }) => {
+export const NotExistUser = ({ fetchedUser, userId }) => {
   const { go } = useContext(GlobalContext);
   const d = useRef();
   const [isNameExist, setIsNameExist] = useState(null);
@@ -29,8 +29,8 @@ export const NotExistUser = ({ fetchedUser }) => {
           res.map((user) => {
             if (user.lastName === fetchedUser.last_name) {
               setIsNameExist(true);
+              return;
             }
-            return;
           });
         });
       } else {
@@ -90,7 +90,14 @@ export const NotExistUser = ({ fetchedUser }) => {
                   {fetchedUser?.first_name + " " + fetchedUser?.last_name}
                 </Title>
 
-                <Button size="l" mode="primary" onClick={() => go("home")}>
+                <Button
+                  size="l"
+                  mode="primary"
+                  onClick={() => {
+                    setActiveUser(userId);
+                    go("shredule");
+                  }}
+                >
                   Да, это я!
                 </Button>
               </>
