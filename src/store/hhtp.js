@@ -8,7 +8,8 @@ export const $api = axios.create({
 });
 
 export const getUser = async (id) => {
-  return await $api.get("user/get/" + id).then((res) => {
+  const curId = id ? id : "";
+  return await $api.get("user/get/" + curId).then((res) => {
     console.log(res.data);
     return res.data;
   });
