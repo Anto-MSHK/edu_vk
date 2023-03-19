@@ -108,6 +108,7 @@ export const LessonCard = ({ subject, count, type, teacher, room, time }) => {
             <ChipsInput
               style={{ width: '100%' }}
               value={changedNotes ? changedNotes : []}
+              disabled
             />
             <Input
               type="text"
@@ -117,7 +118,7 @@ export const LessonCard = ({ subject, count, type, teacher, room, time }) => {
               placeholder="Текст"
             />
             <Input
-              type="text"
+              type="time"
               name="time"
               value={formData.time}
               onChange={handleInputChange}
