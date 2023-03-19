@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import ReactDOM from "react-dom/client";
 import {
   Panel,
@@ -47,16 +47,11 @@ import {
 const Shredule = ({ id }) => {
   const { data, error, isLoading } = useGetScheduleByNameQuery("bulbasaur");
 
-  const buttons = [
-    "Понедельник",
-    "Вторник",
-    "Среда",
-    "Четверг",
-    "Пятница",
-    "Суббота",
-  ];
+    const [activePanel, setActivePanel] = useState('today');
 
-  const { go } = useContext(GlobalContext);
+    const handleChange = (day) => {
+        setActivePanel(day);
+    }
 
   const [selected, setSelected] = React.useState("news");
   const [disabled, setDisabled] = React.useState(false);
