@@ -90,7 +90,7 @@ const Shredule = ({ id, fetchedUser }) => {
             <PanelHeaderBack onClick={() => go("signin")} style={{ top: 0 }} />
           }
         >
-          <Text style={{left: '11%', position: "absolute", cursor: 'pointer'}} onClick={() => go("home")} >
+          <Text style={{left: 40, position: "absolute", cursor: 'pointer'}} onClick={() => go("home")} >
             Замены
           </Text>
           Главная
@@ -109,7 +109,7 @@ const Shredule = ({ id, fetchedUser }) => {
           <div style={{ width: "100%", marginBottom: -20 }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Cell
-                style={{ color: "white", padding: 20 }}
+                style={{ color: "white", padding: 20, top: 50, position: "absolute" }}
                 subtitle={
                   <Text style={{ color: "white", marginTop: 2 }}>
                     Факультет высшего образования
