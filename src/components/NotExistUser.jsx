@@ -105,7 +105,7 @@ export const NotExistUser = ({ fetchedUser, userId }) => {
           ) : (
             <>
               <Header mode="secondary">
-                Мы не смогли найти о вас информацию, чтобы облегчить вам вход :(
+                Мы не смогли найти о вас информацию, чтобы облегчить вам вход :
               </Header>
               <>
                 <Button size="l" mode="primary" onClick={() => go("home")}>

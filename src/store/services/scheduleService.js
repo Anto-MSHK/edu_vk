@@ -18,8 +18,6 @@ export const scheduleApi = createApi({
             })
           }
         });
-        console.log('sorted')
-        console.log(sortedResponse)
         return sortedResponse
       },
     }),

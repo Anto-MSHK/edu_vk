@@ -17,122 +17,70 @@ import { GlobalContext } from "../context";
 
 const Auth = ({ id, fetchedUser }) => {
   const { go } = useContext(GlobalContext);
-  const d = useRef();
-
-  useEffect(() => {
-    if (fetchedUser) return () => {};
-    const t = setTimeout(() => {
-      ReactDOM.createRoot(d.current).render(
-        <Placeholder
-          action={
-            <Group
-              header={<Header mode="primary">Выберите свою должность</Header>}
-            >
-              <Div>
-                <Button
-                  stretched
-                  size="l"
-                  mode="primary"
-                  onClick={() => go("home")}
-                >
-                  Студент
-                </Button>
-              </Div>
-              <Div>
-                <Button
-                  stretched
-                  size="l"
-                  mode="primary"
-                  onClick={() => go("home")}
-                >
-                  Преподаватель
-                </Button>
-              </Div>
-              <Div>
-                <Button
-                  stretched
-                  size="l"
-                  mode="secondary"
-                  onClick={() => go("signin")}
-                >
-                  Вернуться на главную
-                </Button>
-              </Div>
-            </Group>
-          }
-          stretched
-        ></Placeholder>
-      );
-    }, 4000);
-    return () => clearTimeout(t);
-  }, [fetchedUser]);
 
   return (
     <Panel id={id}>
-      <PanelHeader>EDU.vk</PanelHeader>
-      <div />
-      <div
-        style={{
-          maxWidth: 600,
-          width: "100%",
-          marginInline: "auto",
-          marginTop: 20,
-        }}
-      >
-        <div ref={d}>
-          <Group
-            header={
-              <Header mode="secondary">
-                {fetchedUser ? "Информация о профиле:" : "Загружаем данные ..."}
-              </Header>
-            }
+      <div>
+        <Div style={{ margin: '0 auto', width: '50vw' }}>
+          <PanelHeader
+            style={{ margin: "-10px 0" }}
           >
-            {((user) => {
-              const userExists = !!user;
-              if (userExists)
-                return (
-                  <>
-                    {" "}
-                    <Cell
-                      before={
-                        user.photo_200 ? <Avatar src={user.photo_200} /> : null
-                      }
-                      subtitle={user.city?.title ? user.city.title : null}
-                      onClick={() => window.open(`https://vk.com/id${user.id}`)}
-                    >
-                      {user?.first_name + " " + user?.last_name}
-                    </Cell>
-                    <Div>
-                      <Button
-                        stretched
-                        size="l"
-                        mode="primary"
-                        onClick={() => go("home")}
-                      >
-                        Это я
-                      </Button>
-                    </Div>
-                  </>
-                );
-              else
-                return (
-                  <Cell
-                    disabled={true}
-                    before={<SkeletonAvatar />}
-                    subtitle={
-                      <SkeletonText style={{ height: 20, width: 140 }} />
-                    }
+            EDU.vk
+          </PanelHeader>
+          <div
+            style={{
+              backgroundImage:
+                "linear-gradient(135deg, #f24973 0%, #3948e6 100%)",
+              height: 300,
+              display: "flex",
+              alignItems: "flex-end",
+              justifyContent: "center",
+              borderRadius: 12,
+            }}
+          >
+            <div style={{ width: "100%", marginBottom: -20 }}>
+
+              <Group
+                header={<Header mode="primary">Выберите свою должность</Header>}
+              >
+                <Div>
+                  <Button
+                    stretched
+                    size="l"
+                    mode="primary"
+                    onClick={() => go("shredule")}
                   >
-                    <SkeletonText style={{ height: 20, width: 60 }} />
-                    &nbsp; <SkeletonText style={{ height: 20, width: 100 }} />
-                  </Cell>
-                );
-            })(fetchedUser)}
-          </Group>
-        </div>
+                    Студент
+                  </Button>
+                </Div>
+                <Div>
+                  <Button
+                    stretched
+                    size="l"
+                    mode="primary"
+                    onClick={() => go("shredule")}
+                  >
+                    Преподаватель
+                  </Button>
+                </Div>
+                <Div>
+                  <Button
+                    stretched
+                    size="l"
+                    mode="secondary"
+                    onClick={() => go("signin")}
+                  >
+                    Вернуться на главную
+                  </Button>
+                </Div>
+              </Group>
+            </div>
+          </div>
+        </Div>
       </div>
     </Panel>
   );
 };
 
 export default Auth;
+

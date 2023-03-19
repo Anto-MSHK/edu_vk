@@ -103,7 +103,7 @@ const App = () => {
                   <Gioconda id="gioconda" />
                   <Error id="404" />
                   <Auth id="auth" fetchedUser={fetchedUser} />
-                  <Shredule id="shredule" />
+                  <Shredule id="shredule" fetchedUser = {fetchedUser} />
                 </View>
               </GetRoutes>
             </SplitCol>
