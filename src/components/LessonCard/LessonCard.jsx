@@ -63,48 +63,28 @@ export const LessonCard = ({ subject, count, type, teacher, room, time }) => {
     </ModalRoot>
   );
   return (
-    <SplitLayout style={{ justifyContent: "center" }} modal={modalRoot}>
-      <SplitCol style={{ padding: 5 }}>
-        <Card mode="shadow">
-          <div
-            style={{
-              padding: 20,
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <div>
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <Counter
-                      mode="primary"
-                      marginHeight={10}
-                      style={{ padding: 2, marginRight: 10 }}
-                    >
-                      <Title level="4">{count}</Title>
-                    </Counter>
-                    <Title
-                      level="1"
-                      marginHeight={10}
-                      style={{ marginRight: 5 }}
-                      weight={"1"}
-                    >
-                      {subject}
-                    </Title>
+      <SplitLayout style={{justifyContent: "center", height: "100%"}} modal={modalRoot}>
+        <SplitCol style={{padding: "10px"}}>
+          <Card mode="shadow" style={{}}>
+            <div style={{padding: "10px"}}>
+              <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                <div style={{display: "flex", alignItems: "center"}}>
+                  <div>
+                    <div style={{display: "flex", alignItems: "center"}}>
+                      <Counter mode="primary" marginHeight={5} style={{padding: "2px", marginRight: "5px"}}>
+                        <Title level="4" style={{fontSize: "18px"}}>{count}</Title>
+                      </Counter>
+                      <Title level="3" marginHeight={5} style={{fontWeight: "bold", fontSize: "20px"}}>
+                        {subject}
+                      </Title>
+                    </div>
                   </div>
-                </div>
                 {type && (
-                  <Title level="3" weight="3" style={{ marginRight: 10 }}>
+                  <Title level="3" weight="semi-bold" style={{marginLeft: "10px"}}>
                     ({type === "pr" ? "практика" : "теория"})
                   </Title>
                 )}
               </div>
-
               <Popover
                 action="click"
                 shown={shown}
@@ -135,8 +115,8 @@ export const LessonCard = ({ subject, count, type, teacher, room, time }) => {
                 justifyContent: "space-between",
               }}
             >
-              <div style={{ display: "flex", gap: 10 }}>
-                <div>
+              <div style={{display: "flex", flexDirection: "column"}}>
+                <div style={{display: "flex", justifyContent: "space-between"}}>
                   <SimpleCell>
                     <InfoRow header="Время">
                       {time.from}-{time.to}
