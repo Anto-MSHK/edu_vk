@@ -42,8 +42,6 @@ export const LessonCard = ({ subject, count, type, teacher, room, time }) => {
     const handleNotesChangeFormat = () => {
       if (notes.length) {
         const subjectNotes = notes.filter((note) => note.subject === subject)
-        console.log(notes)
-        console.log(subjectNotes)
         if (subjectNotes.length) {
           const changedNotes = subjectNotes.map((note, index) => {
            
@@ -62,12 +60,7 @@ export const LessonCard = ({ subject, count, type, teacher, room, time }) => {
     handleNotesChangeFormat()
   }, [notes])
   const dispatch = useDispatch()
-  /* const [notes, setNotes] = React.useState([
-    {
-      value: "gym",
-      label: "Надо подкачаться",
-    },
-  ]); */
+
   const onClick = (e) => {
     e.stopPropagation();
     setNotes([]);
