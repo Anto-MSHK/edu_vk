@@ -95,7 +95,7 @@ const App = () => {
     return () => bridge.unsubscribe(VKBridgeSubscribeHandler);
   }, []);
 
-  function checkEvents(events) {
+  /* function checkEvents(events) {
     const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const matchingEvent = events.find(event => event.time === currentTime);
 
@@ -113,32 +113,9 @@ const App = () => {
     setTimeout(() => checkEvents(events), interval);
   }
 
-  checkEvents(notes);
+  checkEvents(notes); */
 
-  /*  useEffect(() => {
- 
-     if (notes.length) {
-       notes.forEach(note => {
-         const date = new Date();
-         const [hours, minutes] = note.time.split(':');
-         date.setHours(hours);
-         date.setMinutes(minutes);
-         const currentTime = new Date();
-         if (note.time == currentTime) {
-           bridge.send("VKWebAppShowSlidesSheet", {
-             slides: [
-               {
- 
-                 title: note.subject,
-                 subtitle:
-                   note.text,
-               },
-             ]
-           })
-         }
-       });
-     }
-   }, []) */
+
 
   return (
     <ConfigProvider appearance={appearance}>
