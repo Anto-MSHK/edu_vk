@@ -105,28 +105,29 @@ const Shredule = ({id}) => {
                         }}
                     >
                         {!isLoading && data &&
-                            (dayNumber !== null && dayNumber >= 0 && dayNumber <= 5
-                                    ? data[0].days[`${dayNumber}`].lessons.map((lesson) => {
-                                        return (
-                                            <LessonCard
-                                                key={lesson.count}
-                                                subject={lesson.subject.name}
-                                                teacher={lesson.userId}
-                                                count={lesson.count}
-                                                time={{from: lesson.time_from, to: lesson.time_to}}
-                                                type={lesson.type}
-                                                room={lesson.room.name}
-                                            />
-                                        );
-                                    })
-                                    :
-                                    <div style={{padding: 5}}>
-                                        <Card mode={'shadow'} style={{padding: 20}}>
-                                            <Title style={{textAlign: 'center'}}>Выходной день</Title>
-                                        </Card>
-                                    </div>
-                            )
-                        }
+                        data[0].days[`${dayNumber}`] &&
+                        data[0].days[`${dayNumber}`].lessons &&
+                        data[0].days[`${dayNumber}`].lessons.length > 0 ? (
+                            data[0].days[`${dayNumber}`].lessons.map((lesson) => {
+                                return (
+                                    <LessonCard
+                                        key={lesson.count}
+                                        subject={lesson.subject.name}
+                                        teacher={lesson.userId}
+                                        count={lesson.count}
+                                        time={{from: lesson.time_from, to: lesson.time_to}}
+                                        type={lesson.type}
+                                        room={lesson.room.name}
+                                    />
+                                );
+                            })
+                        ) : (
+                            <div style={{padding: 5}}>
+                                <Card mode={'shadow'} style={{padding: 20}}>
+                                    <Title style={{textAlign: 'center'}}>Выходной день</Title>
+                                </Card>
+                            </div>
+                        )}
                         <Popover
                             action="hover"
                             placement="top-end"
